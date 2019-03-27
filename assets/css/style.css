@@ -1,0 +1,46 @@
+body {
+    /* background-color: rgb(226, 238, 238); */
+    background-image: url("../images/isabella-juskova-709640-unsplash.jpg");
+     /* set background image to 100% height */
+    background-repeat: no-repeat;
+    background-size: 100%;
+    
+    
+    
+    /* Google Font Arimo */
+    font-family: 'Iceberg', cursive;
+    font-size: 20px;
+}
+.title {
+    margin: 50px;
+    font-size: 50px;
+    /* Google Font Bowlby One SC*/
+    font-family: 'Bowlby One SC', cursive;
+    color: rgb(78, 104, 151);
+}
+
+.container {
+    border: rgb(128, 128, 128) solid 5px;
+    background-color: #ffffff;
+    opacity: .75;
+    border-radius: 30px;
+    margin: 30px;
+    /* background-image: url("../images/isabella-juskova-709640-unsplash.jpg"); */
+    width: 40%;
+}
+
+.img {
+    width: 30%;
+}
+
+.score {
+    /* Google Font Style */
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 25px;
+}
+
+.center {
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}

@@ -1,7 +1,7 @@
 //create data holder or variables
 var wordList = ["wolf", "moose", "cougar", "coyote", "bison", "bear", "beaver", "raccoon",
     "pronghorn", "eagle", "bobcat", "reindeer", "opossum", "alligator", 
-    "gopher", "deer", "chipmunk", "wolverine", "ocelot", "fox", "boreal"];
+    "gopher", "deer", "chipmunk", "wolverine", "ocelot", "fox", "boreal", "owl"];
 var chosenWord = "";
 var lettersInChosenWord = [];
 var numBlanks = 0;
@@ -57,6 +57,7 @@ function checkLetters(letter) {
             if (chosenWord[j] === letter) {
                 //here we set the specific space in blanks and letter equal to the letter when there is a match
                 blanksAndSuccesses[j] = letter;
+                console.log(letter);
             }
         }
     
@@ -66,14 +67,6 @@ function checkLetters(letter) {
         wrongGuesses.push(letter);
         numGuesses--;
     }
-}
-
-//roundComplete() function
-//Here we will have all of the code that needs to be run after each guess is made
-function roundComplete() {
-    //First, log an initial status update in the console telling us how many wins, losses, and guesses are left.
-    console.log("WinCount: " + winCounter + " | LossCount: " + lossCounter + " | NumGuesses: " + numBlanks);
-
 
     //update correct guesses
     document.getElementById("guessL-text").innerHTML = numGuesses;
@@ -81,6 +74,13 @@ function roundComplete() {
     document.getElementById("word-text").innerHTML = blanksAndSuccesses.join(" ");
     //update wrong guesses
     document.getElementById("letterAG-text").innerHTML = wrongGuesses.join(" ");
+}
+
+//roundComplete() function
+//Here we will have all of the code that needs to be run after each guess is made
+function roundComplete() {
+    //First, log an initial status update in the console telling us how many wins, losses, and guesses are left.
+    console.log("WinCount: " + winCounter + " | LossCount: " + lossCounter + " | NumGuesses: " + numBlanks);
 
     //if we have gotton all the letters to match the solution..
     if (lettersInChosenWord.toString() === blanksAndSuccesses.toString()) {
@@ -106,5 +106,6 @@ document.onkeyup = function(event) {
     //runs the code to check for correctness
     checkLetters(keyPressed);
     roundComplete();
+
 }
 

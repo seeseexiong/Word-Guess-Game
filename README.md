@@ -14,3 +14,6 @@ Click [PLAY](https://seeseexiong.github.io/Word-Guess-Game/) to get started!
 
 ## License
 This project is licensed under University of Minnesota
+
+## Photo Credits 
+[Unsplash](https://unsplash.com/)
