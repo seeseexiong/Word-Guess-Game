@@ -99,7 +99,6 @@ function roundComplete() {
     }
 }
 //MAIN PROCESS Starts =======================================
-startGame();
 
 document.onkeyup = function(event) {
     var keyPressed = String.fromCharCode(event.which).toLowerCase();
