@@ -1,9 +1,13 @@
 //create data holder or variables
-var wordList = ["wolf", "moose", "cougar", "coyote", "bison", "bear", "beaver", "raccoon",
+var wordList = [
+    "wolf", 
+    "moose", "cougar", "coyote", "bison", "bear", "beaver", "raccoon",
     "pronghorn", "eagle", "bobcat", "reindeer", "opossum", "alligator", 
-    "gopher", "deer", "chipmunk", "wolverine", "ocelot", "fox", "boreal", "owl"];
+    "gopher", "deer", "chipmunk", "wolverine", "ocelot", "fox", "squirrel", "owl"];
 var chosenWord = "";
+//seperate the word into letters and store it here
 var lettersInChosenWord = [];
+//number of blanks or the length of the chosenWord
 var numBlanks = 0;
 var blanksAndSuccesses = [];
 var wrongGuesses = [];
@@ -14,26 +18,38 @@ var lossCounter = 0;
 var numGuesses = 9;
 
 // FUNCTIONS ======================================
-//default when game start
+//when the button on DOM is click, it trigers the game to start
 function startGame() {
+    //default these data...
     numGuesses = 9;
-    chosenWord = wordList[Math.floor(Math.random()*wordList.length)];
-    lettersInChosenWord = chosenWord.split("");
-    console.log(chosenWord + ": " + lettersInChosenWord);
-    numBlanks = lettersInChosenWord.length;
-
     blanksAndSuccesses = [];
     wrongGuesses = [];  
 
-    //print blank lines according to appropriate letters
+    //computer randomly select a word from the wordList
+    chosenWord = wordList[Math.floor(Math.random()*wordList.length)];
+    console.log(chosenWord);
+
+    //the chosenWord is seperated into individual letters and stored in the variable 
+    lettersInChosenWord = chosenWord.split("");
+    console.log(lettersInChosenWord);
+
+    //numBlanks is the length of chosenWord - need this so we can know how many blank lines to show
+    numBlanks = chosenWord.length;
+
+    //display blank lines according to appropriate letters
     for (var i = 0; i<numBlanks; i++) {
         blanksAndSuccesses.push("_");
     }
 
+    //display the blanks at the beginning of each round
     document.getElementById("word-text").innerHTML = blanksAndSuccesses.join(" ");
+    
+    //clear the wrong guesses from the previous round
     document.getElementById("letterAG-text").innerHTML = wrongGuesses;
+    
+    //reset guessleft to 9
     document.getElementById("guessL-text").innerHTML = numGuesses;
-}
+};
 
 //function checks for correct letter
 //it's where we will do all of the comparisons for matches
@@ -49,6 +65,10 @@ function checkLetters(letter) {
             letterInWord = true;
         }
     }
+
+    //check if they already guessed that letter
+    alreadyGuessed(letter);
+
     //if the letter exists somewhere in the word, then figure out exactly where (which indices)
     if (letterInWord) {
         //loop through the word.
@@ -57,24 +77,44 @@ function checkLetters(letter) {
             if (chosenWord[j] === letter) {
                 //here we set the specific space in blanks and letter equal to the letter when there is a match
                 blanksAndSuccesses[j] = letter;
-                console.log(letter);
+                console.log(blanksAndSuccesses[j]);
             }
         }
-    
     }
     //if the letter doesn't exist at all..
     else {
         wrongGuesses.push(letter);
         numGuesses--;
     }
-
+    
     //update correct guesses
     document.getElementById("guessL-text").innerHTML = numGuesses;
     //update correct letters on blank lines
     document.getElementById("word-text").innerHTML = blanksAndSuccesses.join(" ");
     //update wrong guesses
-    document.getElementById("letterAG-text").innerHTML = wrongGuesses.join(" ");
-}
+    document.getElementById("letterAG-text").innerHTML = wrongGuesses.join(", ");
+};
+
+//check letters that was already guessed
+function alreadyGuessed(guessedLetter) {
+    //enable a toggle variable so we can print wrong guess only one time
+    existingLetter = false;
+    
+    //FOR LOOP to check in chosenWord
+        //if letter matches an index of chosenWord then letter will become true
+    for ( i=0; i<wrongGuesses.length; i++ ) {
+        if ( guessedLetter === wrongGuesses[i]) {
+            existingLetter = true;
+            console.log(guessedLetter + " is true");
+        } 
+    };
+
+    if (existingLetter) {
+        alert("You already guessed that letter")
+    };
+
+};
+
 
 //roundComplete() function
 //Here we will have all of the code that needs to be run after each guess is made
@@ -84,8 +124,10 @@ function roundComplete() {
 
     //if we have gotton all the letters to match the solution..
     if (lettersInChosenWord.toString() === blanksAndSuccesses.toString()) {
+        //NEW 3/29/19
+        document.getElementById('word-text').innerHTML = lettersInChosenWord.join(" ");
         winCounter++;
-        alert("You Win!");
+        // alert("You Win!");
         document.getElementById("win-text").innerHTML = winCounter;
         startGame();
     }
